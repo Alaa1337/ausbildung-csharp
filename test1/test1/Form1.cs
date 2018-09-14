@@ -80,7 +80,7 @@ namespace test1
             }
 
 
-            if  (trackBar1.Maximum == 0)
+            if  (dogOne.betmoney == trackBar1.Maximum + trackBar2.Maximum)
             {
                 label6.Text = ("loser");
             }
@@ -146,6 +146,11 @@ namespace test1
                 textBox7.Text = (+dogOne.wins+"Win(s)\n");
                 dogOne.betmoney = winmoney + dogOne.betmoney;
                 label3.Text = (""+dogOne.betmoney );
+
+                if (dogOne.betmoney == trackBar1.Maximum + trackBar2.Maximum)
+                {
+                    label6.Text = ("loser");
+                }
 
             }
 
@@ -224,7 +229,6 @@ namespace test1
 
         }
 
-
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
 
@@ -250,9 +254,17 @@ namespace test1
             {
                 bet1.Enabled = false;
             }
+            else
+            {
+                bet1.Enabled = true;
+            }
             if (trackBar1.Value == 0 || trackBar2.Value == 0)
             {
                 bet1.Enabled = false;
+            }
+            else
+            {
+                bet1.Enabled = true;
             }
 
 
@@ -329,21 +341,7 @@ namespace test1
 
         }
 
-        private void bet2_Click(object sender, EventArgs e)
-        {
-            dogTwo.betmoney = dogTwo.betmoney - trackBar2.Value;
-            label5.Text = ("" + dogTwo.betmoney);
-            money.Text = ("" + winmoney);
-            trackBar2.Enabled = false;
-
-            if (winmoney > 0)
-            {
-                startbutton.Enabled = true;
-            }
-            else
-            {
-                startbutton.Enabled = false;
-            }
-        }
+       
+        
     }
 }

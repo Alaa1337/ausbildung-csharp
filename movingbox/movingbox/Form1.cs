@@ -23,6 +23,11 @@ namespace movingbox
         private int _x;
         private int _y;
         private Position _boxPosition;
+        Random random = new Random();
+
+        int x; 
+            int y; 
+
 
         public Form1()
         {
@@ -32,13 +37,20 @@ namespace movingbox
             _y = 50;
             _boxPosition = Position.Right;
 
-
+            x = random.Next(50 , 250)/10;
+            y = random.Next(50 , 250)/10;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(Brushes.Blue,_x,_y,30,30 );
+
+
+
+            e.Graphics.FillRectangle(Brushes.Violet, x , y ,30,30);
         }
+
+
 
         private void move_Tick(object sender, EventArgs e)
         {
