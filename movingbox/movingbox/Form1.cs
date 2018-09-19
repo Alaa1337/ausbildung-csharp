@@ -19,16 +19,15 @@ namespace movingbox
         }
 
 
-
         private int _x;
         private int _y;
         private Position _boxPosition;
         Random random = new Random();
 
         int x; 
-            int y; 
+            int y;
 
-
+        public static Rectangle paddle1 = new Rectangle(14, 180, 20, 100);
         public Form1()
         {
             InitializeComponent();
@@ -39,7 +38,9 @@ namespace movingbox
 
             x = random.Next(50 , 250)/10;
             y = random.Next(50 , 250)/10;
-        }
+
+         
+    }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -47,7 +48,7 @@ namespace movingbox
 
 
 
-            e.Graphics.FillRectangle(Brushes.Violet, x , y ,30,30);
+    e.Graphics.FillRectangle(Brushes.Violet, x , y ,30,30);
         }
 
 
