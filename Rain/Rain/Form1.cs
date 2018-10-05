@@ -12,12 +12,13 @@ namespace Rain
 {
     public partial class Form1 : Form
     {
-        int maxRainDrops = 0;
-        int maxBullets = 1000;
-        int maxaliens = 5;
-        int gameSpeed = 50;
+        int maxRainDrops = 40;
+        int maxBullets = 50;
+        int maxaliens = 3;
+        int gameSpeed = 40;
         int points = 0;
-        public int totaldropsfallen;
+
+       private Cheatcode cheat = new Cheatcode();
         
         Random r = new Random();
 
@@ -25,6 +26,7 @@ namespace Rain
         private List<RainDrop> rainDrops = new List<RainDrop>();
         private List<Bullet> gun = new List<Bullet>();
         private List<Alien> alien = new List<Alien>();
+        private List<EasterEgg> Boss = new List<EasterEgg>();
         private Player player;
        
 
@@ -54,11 +56,12 @@ namespace Rain
             }
             for (int i = 0; i < maxBullets; i++)
             {
-                /**
-                * Unser Alien
-                */
 
             }
+            /**
+* Unser Alien
+*/
+
             for (int i = 0; i < maxaliens; i++)
             {
                 alien.Add(new Alien(this, r, this.Width, this.Height));
@@ -71,11 +74,21 @@ namespace Rain
                 rainTimer.Enabled = true;
             rainTimer.Interval = gameSpeed;
             rainTimer.Tick += new EventHandler(MyTimer);
-            
+
+
 
         }
-        private void rainRespawn()
+        private void Respawn()
         {
+            if (alien.Count == 0)
+            {
+                for (int i = 0; i < maxaliens; i++)
+                {
+                    alien.Add(new Alien(this, r, this.Width, this.Height));
+
+                }
+            }
+
             if (rainDrops.Count == 0)
             {
                 for (int i = 0; i < maxRainDrops; i++)
@@ -84,6 +97,43 @@ namespace Rain
 
                 }
             }
+        }
+
+        private void checkBossColission()
+        {
+            for (int b = 0; b < gun.Count(); b++)
+            {
+                for (int a = 0; a < Boss.Count(); a++)
+                {
+                    var bulletX = gun[b].x + gun[b].size / 2;
+                    var bulletY = gun[b].y + gun[b].size / 2;
+
+                    if (bulletX > Boss[a].x && bulletX < Boss[a].x + Boss[a].size &&
+                             bulletY > Boss[a].y && bulletY < Boss[a].y + Boss[a].size &&
+                             bulletY < Boss[a].y + Boss[a].size)
+                    {
+                        Boss[a].Hit();
+                        Boss[a].Clear();
+                        Boss[a].Teleport();
+                        
+
+                        Boss[a].windspeed *= -1;
+                        Boss[a].Bosshealth -= 75;
+
+                        Console.WriteLine(Boss[a].Bosshealth.ToString());
+
+                        if (Boss[a].Bosshealth <= 0)
+                        {
+                            Boss[a].Die();
+                            Boss.RemoveAt(a);
+                            
+                            easteregg.Text =("Credits: Alaa, Margus");
+                        }
+                    }
+
+                }
+            }
+
         }
 
 
@@ -100,14 +150,18 @@ namespace Rain
                              bulletY > alien[a].y && bulletY < alien[a].y + alien[a].size &&
                              bulletY < alien[a].y + alien[a].size)
                     {
-
-
+                        alien[a].Hit();
+                        
+                        alien[a].windspeed *= -1;
                         alien[a].Alienhealth-=15;
+                       
                         Console.WriteLine(alien[a].Alienhealth.ToString());
+
                      if (alien[a].Alienhealth <= 0)
                         {
                             alien[a].Die();
                             alien.RemoveAt(a);
+                            points += 15;
                         }   
                     }
 
@@ -130,8 +184,9 @@ namespace Rain
                             bulletY > rainDrops[r].y && bulletY < rainDrops[r].y + rainDrops[r].size &&
                             bulletY < rainDrops[r].y + rainDrops[r].size)
                         {
-                            rainDrops[r].Die();
-                            rainDrops.RemoveAt(r);
+                   
+                        rainDrops[r].Die();
+                             rainDrops.RemoveAt(r);
                           //  Console.WriteLine("COLLISION");
                             points++;
                         }
@@ -149,7 +204,7 @@ namespace Rain
         {
 
             // Let it rain...
-         
+
             int totalAgeOfAllRainDrops = 0;
 
             for (int i = 0; i < rainDrops.Count(); i++)
@@ -174,12 +229,19 @@ namespace Rain
                 alien[i].Drop();
             }
 
+            for (int i = 0; i < Boss.Count; i++)
+            {
+                Boss[i].Drop();
+            }
+
+
 
             // Checkt Bullet->Raindrop Kollisionen
             checkrainCollision();
             checkalienColission();
+            checkBossColission();
 
-            rainRespawn();
+            Respawn();
 
             score.AutoSize = true;
             score.Text = ("Score: " + points);
@@ -207,12 +269,39 @@ namespace Rain
 
 
 
-
-
-
                 
 
             }
+
+            if (cheat.IsCompletedBy(e.KeyCode))
+            {
+               
+                maxRainDrops = 0;
+                maxaliens = 0;
+              
+                
+
+                for (int i = 0; i < rainDrops.Count(); i++)
+                {
+                     rainDrops[i].Die();
+                  //  rainDrops.RemoveAll(i);
+                }
+                for (int i = 0; i< alien.Count(); i++)
+                {
+                    alien[i].Die();
+                }
+
+                alien.Clear();
+               rainDrops.Clear();
+                
+                MessageBox.Show("THAT WAS A MISTAKE");
+                Boss.Add(new EasterEgg(this, r, this.Width, this.Height));
+                gameSpeed = 150;
+
+            }
+
+
         }
+
     }
 }

@@ -2,32 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Drawing;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Rain
 {
-    class RainDrop : GenericObject 
+    class EasterEgg : GenericObject
     {
+         
         private int yMin = -50;
-        private int minSize = 10;
-        private int maxSize = 30;
-        private int minSpeed = 3;
-        private int maxSpeed = 12;
-        private int minwind = -5;
-        private int maxwind = 5;
+        private int maxSize = 100;
+        private int maxSpeed = 1;
+        private int healthcolor = 20;
+        public int Bosshealth = 900;
         private Form1 canvas;
         private int screenwidth;
         private int screenheight;
         private Random r;
+
+       
         
-        System.Drawing.SolidBrush redBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Blue);
+
+        private System.Drawing.SolidBrush redBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Yellow);
         System.Drawing.SolidBrush greyBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
         System.Drawing.Graphics formGraphics;
 
 
-        
 
+
+        public int newcolor;
         public int size;
         public int speed;
         public int windspeed;
@@ -36,9 +41,9 @@ namespace Rain
         /**
          * Constructor
          */
-        public RainDrop (Form1 Canvas, Random RandomGenerator, int ScreenWidth, int ScreenHeight)
+        public EasterEgg(Form1 Canvas, Random RandomGenerator, int ScreenWidth, int ScreenHeight)
         {
-
+            
             r = RandomGenerator;
             canvas = Canvas;
             screenwidth = ScreenWidth;
@@ -48,6 +53,11 @@ namespace Rain
             age = 0;
 
             InitMe();
+
+        }
+        public void Teleport()
+        {
+            x = r.Next(0, screenwidth - size);
         }
 
         /**
@@ -56,11 +66,10 @@ namespace Rain
         void InitMe()
         {
 
-            x = r.Next(0, screenwidth-size);
+            x = r.Next(0, screenwidth - size);
             y = yMin;
-            size = r.Next(minSize, maxSize);
-            speed = r.Next(minSpeed, maxSpeed);
-            windspeed = r.Next(minwind, maxwind);
+            size = maxSize;
+            speed = maxSpeed;
             age++;
 
         }
@@ -74,16 +83,22 @@ namespace Rain
         {
             Clear();
             y += speed;
-          x += windspeed;
+          
 
 
             Draw();
 
-            if (y>screenheight)
+            if (y > screenheight)
             {
                 InitMe();
 
             }
+        }
+        public void Hit()
+        {
+            System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(redBrush.Color.R - healthcolor, redBrush.Color.G - healthcolor, redBrush.Color.B ));
+            redBrush.Color = blackBrush.Color;
+
         }
 
         public void Clear()
@@ -93,7 +108,8 @@ namespace Rain
         public void Draw()
         {
             formGraphics.FillRectangle(redBrush, new Rectangle(x, y, size, size));
-            
+
         }
     }
 }
+

@@ -30,7 +30,7 @@
         {
             this.statss = new System.Windows.Forms.Label();
             this.score = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.easteregg = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // statss
@@ -49,21 +49,21 @@
             this.score.AutoSize = true;
             this.score.BackColor = System.Drawing.Color.Transparent;
             this.score.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.score.Location = new System.Drawing.Point(595, 428);
+            this.score.Location = new System.Drawing.Point(560, 428);
             this.score.Name = "score";
             this.score.Size = new System.Drawing.Size(39, 14);
             this.score.TabIndex = 1;
             this.score.Text = "score";
             // 
-            // label1
+            // easteregg
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(540, 428);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 14);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "score";
+            this.easteregg.AutoSize = true;
+            this.easteregg.BackColor = System.Drawing.Color.Transparent;
+            this.easteregg.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.easteregg.Location = new System.Drawing.Point(343, 428);
+            this.easteregg.Name = "easteregg";
+            this.easteregg.Size = new System.Drawing.Size(0, 14);
+            this.easteregg.TabIndex = 1;
             // 
             // Form1
             // 
@@ -71,7 +71,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(779, 450);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.easteregg);
             this.Controls.Add(this.score);
             this.Controls.Add(this.statss);
             this.Name = "Form1";
@@ -87,7 +87,7 @@
 
         private System.Windows.Forms.Label statss;
         private System.Windows.Forms.Label score;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label easteregg;
     }
 }
 

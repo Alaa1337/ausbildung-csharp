@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EBA906C4-1674-4B7A-B579-25BF23534D5D}</ProjectGuid>
+    <ProjectGuid>{54B8F586-FA17-47E6-964C-B8B8C2079FE5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Rain</RootNamespace>
-    <AssemblyName>Rain</AssemblyName>
+    <RootNamespace>Hangman</RootNamespace>
+    <AssemblyName>Hangman</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,22 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alien.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="Cheatcode.cs" />
-    <Compile Include="Collision.cs" />
-    <Compile Include="EasterEgg.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericObject.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RainDrop.cs" />
+    <Compile Include="Words.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

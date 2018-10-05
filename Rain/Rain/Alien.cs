@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Threading;
 
 namespace Rain
 {
@@ -12,23 +13,26 @@ namespace Rain
         private int yMin = -50;
         private int minSize = 40;
         private int maxSize = 50;
-        private int minSpeed = 20;
-        private int maxSpeed = 30;
+        private int minSpeed = 10;
+        private int maxSpeed = 15;
         private int minwind = -15;
         private int maxwind = 15;
+        private int healthcolor = 5;
         public int Alienhealth = 300;
         private Form1 canvas;
         private int screenwidth;
         private int screenheight;
         private Random r;
 
-        System.Drawing.SolidBrush redBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Green);
+       private System.Drawing.SolidBrush redBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Green);
+        System.Drawing.SolidBrush redBrush2 = new System.Drawing.SolidBrush(System.Drawing.Color.Green);
         System.Drawing.SolidBrush greyBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
         System.Drawing.Graphics formGraphics;
+       
 
 
-
-
+       
+        public int newcolor;
         public int size;
         public int speed;
         public int windspeed;
@@ -39,7 +43,6 @@ namespace Rain
          */
         public Alien(Form1 Canvas, Random RandomGenerator, int ScreenWidth, int ScreenHeight)
         {
-
             r = RandomGenerator;
             canvas = Canvas;
             screenwidth = ScreenWidth;
@@ -47,8 +50,9 @@ namespace Rain
             formGraphics = canvas.CreateGraphics();
             greyBrush.Color = canvas.BackColor;
             age = 0;
-
+            
             InitMe();
+            
         }
 
         /**
@@ -85,6 +89,12 @@ namespace Rain
                 InitMe();
 
             }
+        }
+        public void Hit()
+        {
+            System.Drawing.SolidBrush blackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(redBrush.Color.R+healthcolor, redBrush.Color.G-healthcolor, redBrush.Color.B+healthcolor));
+            redBrush.Color = blackBrush.Color;
+
         }
 
         public void Clear()
